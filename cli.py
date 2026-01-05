@@ -59,7 +59,7 @@ def search_for_product(products, service: ProductService, repo: ProductRepositor
         clear_screen()
         print("Search Results:")
         for idx, product in enumerate(results, 1):
-            print(f"{idx}: {product.get('product_title', 'Unnamed Product')}")
+            print(f"{idx}: {product.get('title', 'Unnamed Product')}")
         sel = input("Enter product number for details (or press Enter to cancel): ").strip()
         if sel.isdigit() and 1 <= int(sel) <= len(results):
             idx = int(sel) - 1
@@ -129,8 +129,8 @@ def add_product_with_ai(products, service: ProductService, repo: ProductReposito
     # Prepare prompt for ChatGPT
     prompt = f"""
 You are an assistant for inventory management. Given the product name below, generate a JSON object containing the product details with the following fields (use empty string if unknown):\n
-product_id, product_title, product_attr, product_link, product_image, Voltage/Power, Material, Dimensions, Certifications, Key_Specs.\n
-Include a link to a datasheet in product_link if possible.\n
+id, title, attributes, link, image, power, Material, Dimensions, Certifications, Key_Specs.\n
+Include a link to a datasheet in link if possible.\n
 If the product name is a URL, attempt to retrieve the webpage and use its content to inform the product details.\n
 Product name: {title}\n
 Respond ONLY with a valid JSON string. Do NOT include markdown, code blocks, or any extra text. The response must start with '{{' and end with '}}'.
@@ -141,9 +141,9 @@ Respond ONLY with a valid JSON string. Do NOT include markdown, code blocks, or 
         # output the AI response for debugging
         print(f"AI Response: {ai_response}")
         product_data = json.loads(ai_response)
-        # Ensure product_title is set to the user input
-        # product_data['product_title'] = title
-        product_data['product_amount'] = 1
+        # Ensure title is set to the user input
+        # product_data['title'] = title
+        product_data['quantity'] = 1
     except Exception as e:
         print(f"AI failed to generate product: {e}\nResponse was: {ai_response if 'ai_response' in locals() else ''}")
         input("Press Enter to return to menu...")

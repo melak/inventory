@@ -3,7 +3,7 @@ from .product_model import Product
 class ProductService:
     def search_products(self, products, query):
         query = query.lower()
-        return [p for p in products if query in p.get('product_title', '').lower() or query in p.get('product_attr', '').lower()]
+        return [p for p in products if query in p.get('title', '').lower() or query in p.get('attributes', '').lower()]
 
     def edit_product_field(self, product: Product):
         keys = list(product.keys())
@@ -32,10 +32,10 @@ class ProductService:
             return False
 
     def adjust_quantity(self, product: Product):
-        current = product.get('product_amount', '')
+        current = product.get('quantity', '')
         new_qty = input(f"Enter new quantity (current: {current}): ").strip()
         if new_qty:
-            product['product_amount'] = new_qty
+            product['quantity'] = new_qty
             print(f"Quantity updated to: {new_qty}")
             return True
         else:

@@ -25,14 +25,14 @@ class ProductRepository:
         # Minimal required fields for a new product
         from .product_model import Product
         product_data = {
-            'product_id': '',
-            'product_title': title,
-            'product_attr': '',
-            'product_link': '',
-            'product_image': '',
-            'product_amount': '',
-            'product_price': '',
-            'Voltage/Power': '',
+            'id': '',
+            'title': title,
+            'attributes': '',
+            'link': '',
+            'image': '',
+            'quantity': '',
+            'price': '',
+            'power': '',
             'Material': '',
             'Dimensions': '',
             'Certifications': '',
